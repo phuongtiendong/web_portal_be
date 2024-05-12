@@ -63,6 +63,7 @@ public class AuthenticationController {
         systemUser.setBirthDate(registerUserDTO.getBirthDate());
         systemUser.setPhoneNumber(registerUserDTO.getPhoneNumber());
         systemUser.setIsFemale(registerUserDTO.getIsFemale());
+        systemUser.setImageUrl(registerUserDTO.getImageUrl());
         systemUser.setRole(Role.USER);
 
         final Classroom classroom = new Classroom();

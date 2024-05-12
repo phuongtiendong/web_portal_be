@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Embeddable
 public class SemesterPointId implements Serializable {
     @Column(nullable = false)
-    private Integer userId;
+    private String userEmail;
 
     @Column(nullable = false)
     private Integer semesterId;

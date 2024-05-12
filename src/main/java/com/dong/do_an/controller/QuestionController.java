@@ -19,7 +19,7 @@ public class QuestionController {
 
     private final QuestionRepository repository;
 
-    @GetMapping("list")
+    @PostMapping("list")
     public ResponseEntity getListQuestion() {
         return ResponseEntity
                 .ok()

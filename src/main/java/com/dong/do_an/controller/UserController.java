@@ -2,7 +2,6 @@ package com.dong.do_an.controller;
 
 import com.dong.do_an.constants.StatusCode;
 import com.dong.do_an.dto.ChangePasswordDTO;
-import com.dong.do_an.dto.DetailDTO;
 import com.dong.do_an.dto.UpdateUserDTO;
 import com.dong.do_an.dto.UserEmailDTO;
 import com.dong.do_an.entity.Role;
@@ -28,7 +27,7 @@ public class UserController {
 
     private final PasswordEncoder passwordEncoder;
 
-    @GetMapping("profile")
+    @PostMapping("profile")
     public ResponseEntity getProfile(Authentication authentication) {
         final Optional<SystemUser> optionalSystemUser = userRepository.findById(authentication.getName());
         if (optionalSystemUser.isPresent()) {
@@ -65,7 +64,18 @@ public class UserController {
                     .body(
                             BaseResponse
                                     .builder()
-                                    .code(StatusCode.NOT_SAME_PASSWORD)
+                                    .code(StatusCode.NOT_SAME_NEW_PASSWORD)
+                                    .build()
+                    );
+        }
+
+        if (changePasswordDTO.getNewPassword() == null || changePasswordDTO.getNewPassword().equals(changePasswordDTO.getOldPassword())) {
+            return ResponseEntity
+                    .ok()
+                    .body(
+                            BaseResponse
+                                    .builder()
+                                    .code(StatusCode.SAME_OLD_PASSWORD)
                                     .build()
                     );
         }
@@ -83,7 +93,7 @@ public class UserController {
         }
 
         final SystemUser systemUser = optionalSystemUser.get();
-        if (!systemUser.getPassword().equals(changePasswordDTO.getOldPassword())) {
+        if (!passwordEncoder.matches(changePasswordDTO.getOldPassword(), systemUser.getPassword())) {
             return ResponseEntity
                     .ok()
                     .body(
@@ -109,8 +119,20 @@ public class UserController {
 
     @PostMapping("update")
     @Transactional
-    public ResponseEntity update(@RequestBody UpdateUserDTO updateUserDTO) {
-        final SystemUser systemUser = userRepository.findById(updateUserDTO.getEmail()).orElseThrow();
+    public ResponseEntity update(Authentication authentication, @RequestBody UpdateUserDTO updateUserDTO) {
+        final Optional<SystemUser> optionalSystemUser = userRepository.findById(authentication.getName());
+        if (optionalSystemUser.isEmpty()) {
+            return ResponseEntity
+                    .ok()
+                    .body(
+                            BaseResponse
+                                    .builder()
+                                    .code(StatusCode.NOT_FOUND)
+                                    .build()
+                    );
+        }
+
+        final SystemUser systemUser = optionalSystemUser.get();
         systemUser.setName(updateUserDTO.getName());
         systemUser.setBirthDate(updateUserDTO.getBirthDate());
         systemUser.setPhoneNumber(updateUserDTO.getPhoneNumber());
@@ -128,9 +150,9 @@ public class UserController {
                 );
     }
 
-    @GetMapping("list")
+    @PostMapping("list")
     public ResponseEntity getListUser() {
-        final List<SystemUser> listSystemUser = userRepository.getAllUser(Role.USER);
+        final List<SystemUser> listSystemUser = userRepository.getUserByRole(Role.USER);
         return ResponseEntity
                 .ok()
                 .body(
@@ -142,7 +164,7 @@ public class UserController {
                 );
     }
 
-    @GetMapping("detail")
+    @PostMapping("detail")
     public ResponseEntity getDetailUser(@RequestBody UserEmailDTO userEmailDTO) {
         final Optional<SystemUser> optionalSystemUser = userRepository.findById(userEmailDTO.getEmail());
         if (optionalSystemUser.isEmpty()) {
@@ -155,6 +177,8 @@ public class UserController {
                                     .build()
                     );
         } else {
+            final SystemUser systemUser = optionalSystemUser.get();
+            systemUser.setPassword(null);
             return ResponseEntity
                     .ok()
                     .body(

@@ -25,4 +25,6 @@ public class RegisterUserDTO {
     private Boolean isFemale;
 
     private Integer classroomId;
+
+    private String imageUrl;
 }

@@ -7,8 +7,10 @@ public class StatusCode {
     public static String EMAIL_EXISTED = "EMAIL_EXISTED";
     public static String EMAIL_NOT_EXISTED = "EMAIL_NOT_EXISTED";
     public static String SERVER_ERROR = "SERVER_ERROR";
-    public static String NOT_SAME_PASSWORD = "NOT_SAME_PASSWORD";
+    public static String NOT_SAME_NEW_PASSWORD = "NOT_SAME_NEW_PASSWORD";
+    public static String SAME_OLD_PASSWORD = "SAME_OLD_PASSWORD";
     public static String WRONG_OLD_PASSWORD = "WRONG_OLD_PASSWORD";
     public static String CANNOT_DELETE_ADMIN = "CANNOT_DELETE_ADMIN";
     public static String AUTHENTICATION_FAILED = "AUTHENTICATION_FAILED";
+    public static String NO_PERMISSION = "NO_PERMISSION";
 }

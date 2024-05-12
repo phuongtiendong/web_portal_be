@@ -7,18 +7,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class UpdateUserDTO {
-    private String name;
+@NoArgsConstructor
+public class SemesterDTO {
+    private Integer classroomId;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date birthDate;
+    private Date startDate;
 
-    private String phoneNumber;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private Date endDate;
 
-    private String imageUrl;
+    private List<SubjectDTO> listSubject;
 }

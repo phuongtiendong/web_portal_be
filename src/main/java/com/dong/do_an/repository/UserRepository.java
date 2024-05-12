@@ -13,5 +13,8 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<SystemUser, String> {
 
     @Query("SELECT e FROM SystemUser e WHERE e.role = :role")
-    List<SystemUser> getAllUser(@Param("role") Role role);
+    List<SystemUser> getUserByRole(@Param("role") Role role);
+
+    @Query("SELECT e FROM SystemUser e WHERE e.classroom.id = :classroomId")
+    List<SystemUser> getUserByClassroomId(@Param("classroomId") Integer classroomId);
 }

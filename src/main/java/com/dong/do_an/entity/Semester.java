@@ -19,6 +19,9 @@ public class Semester {
     private Integer id;
 
     @Column(nullable = false)
+    private Integer classroomId;
+
+    @Column(nullable = false)
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date startDate;
 
@@ -27,7 +30,7 @@ public class Semester {
     private Date endDate;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "semesterId")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Subject> listSubject;

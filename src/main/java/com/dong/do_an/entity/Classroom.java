@@ -19,7 +19,7 @@ public class Classroom {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "classroomId")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Semester> listSemester;

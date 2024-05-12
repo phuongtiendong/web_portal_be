@@ -12,8 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PointDTO {
-    private Integer userId;
-    private Integer semesterId;
-    private List<SubjectPoint> listSubjectPoint;
+public class UpdatePointDTO {
+    private Integer id;
+    private Integer point;
 }

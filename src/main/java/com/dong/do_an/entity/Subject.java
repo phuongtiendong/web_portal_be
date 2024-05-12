@@ -17,10 +17,13 @@ public class Subject {
     private Integer id;
 
     @Column(nullable = false)
+    private Integer semesterId;
+
+    @Column(nullable = false)
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "subjectId")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<SubjectTime> listSubjectTime;

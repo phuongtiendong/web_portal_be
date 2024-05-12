@@ -1,6 +1,7 @@
 package com.dong.do_an.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class SemesterPoint {
     @EmbeddedId
+    @JsonUnwrapped
     private SemesterPointId semesterPointId;
 
     @Column(nullable = false)
@@ -27,8 +29,8 @@ public class SemesterPoint {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumns({
-            @JoinColumn(name = "userId"),
-            @JoinColumn(name = "semesterId")
+            @JoinColumn(name = "userEmail", referencedColumnName = "userEmail"),
+            @JoinColumn(name = "semesterId", referencedColumnName = "semesterId")
     })
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

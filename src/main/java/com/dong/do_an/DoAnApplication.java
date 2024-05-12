@@ -9,7 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 @RequiredArgsConstructor
 public class DoAnApplication {
-    
     public static void main(String[] args) {
         SpringApplication.run(DoAnApplication.class, args);
     }

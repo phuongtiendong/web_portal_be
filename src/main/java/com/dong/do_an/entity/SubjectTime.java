@@ -18,6 +18,9 @@ public class SubjectTime {
     private Integer id;
 
     @Column(nullable = false)
+    private Integer subjectId;
+
+    @Column(nullable = false)
     private Integer type;
 
     @Column(nullable = false)
@@ -26,6 +29,15 @@ public class SubjectTime {
     @Column(nullable = false)
     private String className;
 
+    // Tuần: chẵn, lẻ
     @Column(nullable = false)
     private Integer week;
+
+    // Ngày trong tuần: Thứ 2 -> Thứ 7
+    @Column(nullable = false)
+    private Integer weekday;
+
+    // Ca học
+    @Column(nullable = false)
+    private Integer period;
 }

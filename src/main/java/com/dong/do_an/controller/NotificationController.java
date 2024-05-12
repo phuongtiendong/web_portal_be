@@ -1,6 +1,7 @@
 package com.dong.do_an.controller;
 
 import com.dong.do_an.constants.StatusCode;
+import com.dong.do_an.dto.DetailDTO;
 import com.dong.do_an.entity.Notification;
 import com.dong.do_an.model.BaseResponse;
 import com.dong.do_an.repository.NotificationRepository;
@@ -16,11 +17,18 @@ public class NotificationController {
 
     private final NotificationRepository repository;
 
-    @GetMapping("list")
+    @PostMapping("list")
     public ResponseEntity getListNotification() {
         return ResponseEntity
                 .ok()
                 .body(repository.findAll());
+    }
+
+    @PostMapping("detail")
+    public ResponseEntity getDetailNotification(@RequestBody DetailDTO detailDTO) {
+        return ResponseEntity
+                .ok()
+                .body(repository.findById(detailDTO.getId()));
     }
 
     @PostMapping("create")
